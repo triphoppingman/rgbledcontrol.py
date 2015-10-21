@@ -5,8 +5,8 @@ from src.LedLight import LedLight
 
 
  
-a1 = LedLight('192.168.1.251',5577,1)
-a2 = LedLight('192.168.1.217',5577,2)
+#a1 = LedLight('192.168.1.251',5577,1)
+#a2 = LedLight('192.168.1.217',5577,2)
 #a1.turnOn()
 #a2.turnOn()
 #time.sleep(1)
@@ -32,23 +32,37 @@ a2 = LedLight('192.168.1.217',5577,2)
 #a2.turnOff()
 
 #a1.turnOn()
-a1.turnOn()
+#a1.turnOn()
+
+a3 = LedLight('192.168.1.29',5577,1)
+#a3 = LedLight('192.168.1.217',5577,2)
+a3.turnOn()
+
 while 1:
-    time.sleep(1)
-    a1.sendRGB(200,0,0)
-    time.sleep(1)
-    a1.sendRGB(0,200,0)
-    time.sleep(1)
-    a1.sendRGB(0,0,200)
-    time.sleep(1)
-    for x in range(10,200):
-        a1.sendRGB(0,x,0)
-    for x in range(10,200):
-        a1.sendRGB(200-x,0,0)
-    for x in range(10,200):
-        a1.sendRGB(0,0, x)
-
-
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(255,0  ,0  )
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
+	a3.sendRGB(255,255,255)
+	a3.sendRGB(0  ,0  ,255)
 
 #a1.turnOff()
 #a1.testX([0x81, 0x8a, 0x8b])
