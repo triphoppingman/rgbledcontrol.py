@@ -5,7 +5,7 @@
 __author__ = "bruce"
 __date__ = "$Oct 21, 2015 3:03:57 PM$"
 
-from pyparsing import Word, alphas, alphanums, nums, delimitedList, quotedString, Group,ParseException, Literal, Combine, Optional
+from pyparsing import Word, alphas, alphanums, nums, delimitedList, quotedString, Group,ParseException, Literal, Combine, Optional,Regex
 from pprint import pprint
 
 #define the grammar
@@ -19,8 +19,8 @@ KEY = Word(alphas)
 POINT = Literal('.')
 PLUSORMINUS = Literal('+') | Literal('-')
 NUMBER = Word(nums) 
-INTEGER = Combine( Optional(PLUSORMINUS) + NUMBER )
-FLOAT = (INTEGER + POINT + NUMBER) | (POINT + NUMBER)  
+INTEGER = Regex(r'[-+]?[0-9]*')
+FLOAT = Regex(r'[-+]?[0-9]*\.[0-9]+')  
 STRING = quotedString()
 VALUE=STRING('string') | FLOAT('float') | INTEGER('integer') 
 KVPAIR = Group(KEY('key')+'='+VALUE('value'))
@@ -44,9 +44,9 @@ class ServerCommand:
       self.errmsg = str(e)
 
 if __name__ == "__main__":
-  serverCmd1 = ServerCommand("{A,B,C}command(D='E', F='G')")
+  serverCmd1 = ServerCommand("{A,B,C}command(D='E',F=34,G=3.2,H=-2,I=.4,J=-.354)")
   print "command = "+serverCmd1.comname
   for obj in serverCmd1.objects:
     print "Object: "+obj
   for kvpair in serverCmd1.kvpairs:
-    print "Argument key: "+kvpair.key+" = "+kvpair.value
+    print "Argument key: "+kvpair.key+" = "+kvpair.value+", float="+kvpair.float+", integer="+kvpair.integer
