@@ -5,7 +5,7 @@
 __author__ = "bruce"
 __date__ = "$Oct 21, 2015 3:03:57 PM$"
 
-from pyparsing import Word, alphas, alphanums, delimitedList, quotedString, Group,ParseException
+from pyparsing import Word, alphas, alphanums, nums, delimitedList, quotedString, Group,ParseException, Literal, Combine, Optional
 from pprint import pprint
 
 #define the grammar
@@ -16,7 +16,13 @@ OBJLIST = '{' + OBJECTS('objects') + '}'
 
 #The arguments 
 KEY = Word(alphas)
-VALUE = quotedString()
+POINT = Literal('.')
+PLUSORMINUS = Literal('+') | Literal('-')
+NUMBER = Word(nums) 
+INTEGER = Combine( Optional(PLUSORMINUS) + NUMBER )
+FLOAT = (INTEGER + POINT + NUMBER) | (POINT + NUMBER)  
+STRING = quotedString()
+VALUE=STRING('string') | FLOAT('float') | INTEGER('integer') 
 KVPAIR = Group(KEY('key')+'='+VALUE('value'))
 KVPAIRS = delimitedList(KVPAIR('kvpair'))
 KVLIST = '(' + KVPAIRS('kvpairs') + ')'
