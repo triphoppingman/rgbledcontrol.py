@@ -6,10 +6,8 @@ from LedLight import LedLight
 # This is just a start, an exploration of the protocol
 # 
 class LedLightMagicBulb(LedLight):
-  #def __init__(self, ipAddr, ipPort):
-  #  pass
-    #super(LedLightMagicBulb, self).__init__(ipAddr, ipPort)
-
+  factor = 255/100
+  
   def addChkSum(self,bin_list):
     chksum = 0
     for idx,val in enumerate(bin_list):
@@ -25,11 +23,11 @@ class LedLightMagicBulb(LedLight):
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
-    return self.xmit(self.convertToBin(self.addChkSum([49,red, green, blue, 0, 240, 15])))
+    return self.xmit(self.convertToBin(self.addChkSum([49,red*self.factor, green*self.factor, blue*self.factor, 0, 240, 15])))
 
   # Send a white message    
   def sendWhite(self, white):
-    return self.xmit(self.convertToBin(self.addChkSum([49,0, 0, 0, white, 15, 15])))
+    return self.xmit(self.convertToBin(self.addChkSum([49,0, 0, 0, white*self.factor, 15, 15])))
 
   def turnOff(self):
     return self.xmit(self.convertToBin(self.addChkSum([113,36,15])))
