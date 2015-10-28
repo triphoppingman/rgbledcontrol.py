@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import time
-from src.LedLight import LedLight 
+from src.ledlib.LedLight import LedLightMagicBulb 
 
 
  
@@ -34,7 +34,7 @@ from src.LedLight import LedLight
 #a1.turnOn()
 #a1.turnOn()
 
-a3 = LedLight('192.168.1.29',5577,1)
+a3 = LedLightMagicBulb('192.168.1.29',5577)
 #a3 = LedLight('192.168.1.217',5577,2)
 a3.turnOn()
 

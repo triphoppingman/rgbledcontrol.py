@@ -13,6 +13,6 @@ from ledlib.LedLight import LedLight
 if __name__ == "__main__":
   print "Hello World";
 
-  a1 = LedLight('192.168.1.29', 5577,1)
+  a1 = LedLightMagicBulb('192.168.1.29', 5577)
   a1.turnOn()
   a1.sendRGB(102,51,0)
