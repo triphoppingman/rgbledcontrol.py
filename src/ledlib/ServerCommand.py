@@ -29,7 +29,7 @@ KVLIST = '(' + KVPAIRS('kvpairs') + ')'
 
 # The command
 COMNAME = Word(alphas)
-COMMAND = OBJLIST('objlist') + COMNAME('comname') + KVLIST('kvlist')
+COMMAND = OBJLIST('objlist') + COMNAME('comname') + Optional(KVLIST('kvlist'))
 COMSPEC = COMMAND('command')
 
 class ServerCommand:
@@ -40,13 +40,26 @@ class ServerCommand:
       self.comname = fn.comname
       self.objects = fn.objects
       self.kvpairs = fn.kvpairs
+
+      self.kvdict = dict()
+      for kvpair in self.kvpairs:
+        key = kvpair.key
+        if hasattr(kvpair,"integer"):
+          self.kvdict[key] = int(kvpair.integer)
+        elif hasattr(kvpair, "float"):
+          self.kvdict[key] = float(kvpair.float)
+        else:
+          self.kvdict[key] = kvpair.value
+
     except Exception as e:
       self.errmsg = str(e)
+      
 
 if __name__ == "__main__":
-  serverCmd1 = ServerCommand("{A,B,C}command(D='E',F=34,G=3.2,H=-2,I=.4,J=-.354)")
+  serverCmd1 = ServerCommand("{g1}sendWhite(white=70)")
   print "command = "+serverCmd1.comname
   for obj in serverCmd1.objects:
     print "Object: "+obj
   for kvpair in serverCmd1.kvpairs:
     print "Argument key: "+kvpair.key+" = "+kvpair.value+", float="+kvpair.float+", integer="+kvpair.integer
+  print serverCmd1.kvdict

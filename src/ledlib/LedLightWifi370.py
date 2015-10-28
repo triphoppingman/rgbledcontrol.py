@@ -7,7 +7,7 @@ from LedLight import LedLight
 # This is just a start, an exploration of the protocol
 # 
 class LedLightWifi370(LedLight):
-  factor = 255/100
+  factor = 256/100
   
   # Send an RGB message
   def sendRGB(self,red, green, blue):
@@ -15,7 +15,6 @@ class LedLightWifi370(LedLight):
 
   # Send a white message    
   def sendWhite(self, white):
-    white *= self.factor
     return self.sendRGB(white, white, white)
 
   def turnOff(self):

@@ -6,7 +6,7 @@ from LedLight import LedLight
 # This is just a start, an exploration of the protocol
 # 
 class LedLightMagicBulb(LedLight):
-  factor = 255/100
+  factor = 256/100
   
   def addChkSum(self,bin_list):
     chksum = 0

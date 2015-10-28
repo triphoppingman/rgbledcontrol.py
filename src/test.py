@@ -10,14 +10,17 @@ __date__ = "$Oct 11, 2015 4:02:18 PM$"
 from ledlib.LedLightMagicBulb import LedLightMagicBulb
 from ledlib.LedLightWifi370 import LedLightWifi370
 from ledlib.LedLightGroup import LedLightGroup
+from ledlib.LedLightCommandHandler import LedLightCommandHandler
+from ledlib.ServerCommand import ServerCommand
+
 import time
 
 if __name__ == "__main__":
   print "Hello World";
 
-  a1 = LedLightMagicBulb('bulb1', '192.168.1.29', 5577)
-  a2 = LedLightMagicBulb('bulb2', '192.168.1.251', 5577)
-  a3 = LedLightWifi370('bulb3', '192.168.1.217', 5577)
+  a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
+  a2 = LedLightMagicBulb('a2', '192.168.1.251', 5577)
+  a3 = LedLightWifi370('a3', '192.168.1.217', 5577)
 ##  a1.turnOn()
 #  time.sleep(1)
 #  a1.sendWhite(100)
@@ -26,16 +29,25 @@ if __name__ == "__main__":
 #  time.sleep(1)
 #  a1.turnOff()
 
-  g1 = LedLightGroup('test', [a1,a2,a3])
-  g1.turnOn()
-  while 1:
-    g1.sendWhite(50)
-    time.sleep(1)
-    g1.sendRGB(100,0,0)
-    time.sleep(1)
-    g1.sendRGB(0,90,0)
-    time.sleep(1)
-    g1.sendRGB(0,0,70)
-    time.sleep(1)
-  g1.turnOff()
+  g1 = LedLightGroup('g1', [a1,a2,a3])
+#  g1.turnOn()
+#  while 1:
+#    g1.sendWhite(50)
+#    time.sleep(1)
+#    g1.sendRGB(100,0,0)
+#    time.sleep(1)
+#    g1.sendRGB(0,90,0)
+#    time.sleep(1)
+#    g1.sendRGB(0,0,70)
+#    time.sleep(1)
+#  g1.turnOff()
+  handler = LedLightCommandHandler([g1])
+  handler.handleCommand(ServerCommand("{g1}turnOn"))
+  time.sleep(1)
+  handler.handleCommand(ServerCommand("{g1}sendWhite(white=10)"))
+  time.sleep(1)
+  handler.handleCommand(ServerCommand("{g1}sendWhite(white=70)"))
+  time.sleep(1)
+  handler.handleCommand(ServerCommand("{g1}turnOff"))
+
 
