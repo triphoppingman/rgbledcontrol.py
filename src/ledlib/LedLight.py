@@ -58,13 +58,6 @@ class LedLight:
   def sendWhite(self, white):
     pass
 
-  # Fade the light in 
-  def fadeIn(self):
-    pass
-
-  def fadeOut(self):
-    pass
-
   def turnOff(self):
     pass
 

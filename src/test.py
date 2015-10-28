@@ -7,12 +7,17 @@
 __author__ = "bruce"
 __date__ = "$Oct 11, 2015 4:02:18 PM$"
 
-from ledlib.LedLight import LedLight
-
+from ledlib.LedLightMagicBulb import LedLightMagicBulb
+import time
 
 if __name__ == "__main__":
   print "Hello World";
 
   a1 = LedLightMagicBulb('192.168.1.29', 5577)
   a1.turnOn()
+  time.sleep(1)
+  a1.sendWhite(255)
+  time.sleep(1)
   a1.sendRGB(102,51,0)
+  time.sleep(1)
+  a1.turnOff()
