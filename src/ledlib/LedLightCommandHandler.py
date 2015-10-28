@@ -14,10 +14,7 @@ class LedLightCommandHandler:
   def handleCommand(self, command):
     for objname in command.objects:
       if(objname in self.objdict):
-        objref = self.objdict[objname]
-        methargs = dict() #{"self":objref}
-        methargs.update(command.kvdict)
-        getattr(objref, command.comname)(**methargs)
+        getattr(self.objdict[objname], command.comname)(**command.kvdict)
       else:
         print "Object: "+obj+ " not defined"
       

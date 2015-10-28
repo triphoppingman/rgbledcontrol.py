@@ -44,10 +44,28 @@ if __name__ == "__main__":
   handler = LedLightCommandHandler([g1])
   handler.handleCommand(ServerCommand("{g1}turnOn"))
   time.sleep(1)
-  handler.handleCommand(ServerCommand("{g1}sendWhite(white=10)"))
-  time.sleep(1)
-  handler.handleCommand(ServerCommand("{g1}sendWhite(white=70)"))
-  time.sleep(1)
-  handler.handleCommand(ServerCommand("{g1}turnOff"))
+#  handler.handleCommand(ServerCommand("{g1}sendWhite(white=10)"))
+#  time.sleep(1)
+#  handler.handleCommand(ServerCommand("{g1}sendWhite(white=70)"))
+#  time.sleep(1)
+#  for i in range(10):
+#    handler.handleCommand(ServerCommand("{g1}sendRGB(red=100,blue=0,green=0)"))
+#    time.sleep(1)
+#    handler.handleCommand(ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)"))
+#    time.sleep(1)
+#    handler.handleCommand(ServerCommand("{g1}sendRGB(red=0,blue=0,green=100)"))
+#    time.sleep(1)
+#  handler.handleCommand(ServerCommand("{g1}turnOff"))
 
+  redOn = ServerCommand("{g1}sendRGB(red=100,blue=0,green=0)")
+  whiteOn = ServerCommand("{g1}sendRGB(red=100,blue=100,green=100)")
+  blueOn = ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)")
+  
+  for i in range(100):
+    for j in range(5):
+      handler.handleCommand(redOn)
+      handler.handleCommand(whiteOn)
+    for j in range(5):
+      handler.handleCommand(blueOn)
+      handler.handleCommand(whiteOn)
 
