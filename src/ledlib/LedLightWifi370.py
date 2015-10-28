@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import LedLight
+from LedLight import LedLight
 
 
 # Class to control two kinds of RGB LED Lights / controllers.

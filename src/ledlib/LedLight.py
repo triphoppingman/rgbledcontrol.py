@@ -8,7 +8,8 @@ import time
 # Base class for all led lights
 # 
 class LedLight:
-  def __init__(self, ipAddr, ipPort):
+  def __init__(self, name, ipAddr, ipPort):
+    self.name = name
     self.ipAddr = ipAddr
     self.ipPort = ipPort
         

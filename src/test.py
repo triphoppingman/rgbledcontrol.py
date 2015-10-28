@@ -8,16 +8,34 @@ __author__ = "bruce"
 __date__ = "$Oct 11, 2015 4:02:18 PM$"
 
 from ledlib.LedLightMagicBulb import LedLightMagicBulb
+from ledlib.LedLightWifi370 import LedLightWifi370
+from ledlib.LedLightGroup import LedLightGroup
 import time
 
 if __name__ == "__main__":
   print "Hello World";
 
-  a1 = LedLightMagicBulb('192.168.1.29', 5577)
-  a1.turnOn()
-  time.sleep(1)
-  a1.sendWhite(100)
-  time.sleep(1)
-  a1.sendRGB(50,20,0)
-  time.sleep(1)
-  a1.turnOff()
+  a1 = LedLightMagicBulb('bulb1', '192.168.1.29', 5577)
+  a2 = LedLightMagicBulb('bulb2', '192.168.1.251', 5577)
+  a3 = LedLightWifi370('bulb3', '192.168.1.217', 5577)
+##  a1.turnOn()
+#  time.sleep(1)
+#  a1.sendWhite(100)
+#  time.sleep(1)
+#  a1.sendRGB(50,20,0)
+#  time.sleep(1)
+#  a1.turnOff()
+
+  g1 = LedLightGroup('test', [a1,a2,a3])
+  g1.turnOn()
+  while 1:
+    g1.sendWhite(50)
+    time.sleep(1)
+    g1.sendRGB(100,0,0)
+    time.sleep(1)
+    g1.sendRGB(0,90,0)
+    time.sleep(1)
+    g1.sendRGB(0,0,70)
+    time.sleep(1)
+  g1.turnOff()
+
