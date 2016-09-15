@@ -18,9 +18,9 @@ import time
 if __name__ == "__main__":
   print "Hello World";
 
-  a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
-  a2 = LedLightMagicBulb('a2', '192.168.1.251', 5577)
-  a3 = LedLightWifi370('a3', '192.168.1.217', 5577)
+  #a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
+  a2 = LedLightMagicBulb('a2', 'bulb0', 5577)
+  a3 = LedLightWifi370('a3', 'strip05', 5577)
 ##  a1.turnOn()
 #  time.sleep(1)
 #  a1.sendWhite(100)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 #  time.sleep(1)
 #  a1.turnOff()
 
-  g1 = LedLightGroup('g1', [a1,a2,a3])
+  g1 = LedLightGroup('g1', [a2, a3])
 #  g1.turnOn()
 #  while 1:
 #    g1.sendWhite(50)

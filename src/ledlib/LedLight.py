@@ -8,9 +8,9 @@ import time
 # Base class for all led lights
 # 
 class LedLight:
-  def __init__(self, name, ipAddr, ipPort):
+  def __init__(self, name, ipAddrOrName, ipPort):
     self.name = name
-    self.ipAddr = ipAddr
+    self.ipAddr = socket.gethostbyname(ipAddrOrName)
     self.ipPort = ipPort
         
   # takes a list of bytes
