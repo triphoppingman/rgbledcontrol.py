@@ -8,8 +8,15 @@ import time
 # Base class for all led lights
 # 
 class LedLight:
-  def __init__(self, name, ipAddrOrName, ipPort):
+  def __init__(self, name, ipAddrOrName = None, ipPort = None):
     self.name = name
+
+    if ipAddrOrName is None:
+      ipAddrOrName = name
+
+    if ipPort is None:
+      ipPort = 5577
+
     self.ipAddr = socket.gethostbyname(ipAddrOrName)
     self.ipPort = ipPort
         
@@ -36,20 +43,33 @@ class LedLight:
     return None 
 
   # Transmit a binary message
-  def xmitrecv(self,bin_msg):
-    data = None
+  def xmitrecv(self,bin_msg,timeout=1):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
     s.settimeout(2.0)
     s.connect((self.ipAddr, self.ipPort))
     s.send(bin_msg)
-    try:
-        data = s.recv(1024)
-    except socket.timeout:
-        print "timed out"
+    s.setblocking(0)
+
+    chunks = []
+    begin = time.time()
+    while 1:
+      if chunks and time.time() - begin > timeout:
+        break
+      elif time.time() - begin > timeout * 2:
+        break
+      try:
+        chunk = s.recv(8192)
+        if chunk:
+          chunks.append(chunk)
+          begin = time.time()
+        else:
+          time.sleep(0.1)
+      except:
+        pass
 
     s.close()
-    return data 
+    return ''.join(chunks)
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):

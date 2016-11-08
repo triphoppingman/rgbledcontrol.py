@@ -19,8 +19,8 @@ if __name__ == "__main__":
   print "Hello World";
 
   #a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
-  a2 = LedLightMagicBulb('a2', 'bulb0', 5577)
-  a3 = LedLightWifi370('a3', 'strip05', 5577)
+  a2 = LedLightMagicBulb('a2', 'bulb06', 5577)
+##  a3 = LedLightWifi370('a3', 'strip05', 5577)
 ##  a1.turnOn()
 #  time.sleep(1)
 #  a1.sendWhite(100)
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 #  time.sleep(1)
 #  a1.turnOff()
 
-  g1 = LedLightGroup('g1', [a2, a3])
+  g1 = LedLightGroup('g1', [a2])
 #  g1.turnOn()
 #  while 1:
 #    g1.sendWhite(50)
@@ -42,8 +42,12 @@ if __name__ == "__main__":
 #    time.sleep(1)
 #  g1.turnOff()
   handler = LedLightCommandHandler([g1])
-  handler.handleCommand(ServerCommand("{g1}turnOn"))
-  time.sleep(1)
+#  handler.handleCommand(ServerCommand("{g1}turnOn"))
+#  time.sleep(2)
+#  handler.handleCommand(ServerCommand("{g1}turnOff"))
+#  time.sleep(2)
+#  handler.handleCommand(ServerCommand("{g1}turnOn"))
+#  time.sleep(2)
 #  handler.handleCommand(ServerCommand("{g1}sendWhite(white=10)"))
 #  time.sleep(1)
 #  handler.handleCommand(ServerCommand("{g1}sendWhite(white=70)"))
@@ -60,12 +64,18 @@ if __name__ == "__main__":
   redOn = ServerCommand("{g1}sendRGB(red=100,blue=0,green=0)")
   whiteOn = ServerCommand("{g1}sendRGB(red=100,blue=100,green=100)")
   blueOn = ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)")
-  
-  for i in range(100):
-    for j in range(5):
-      handler.handleCommand(redOn)
-      handler.handleCommand(whiteOn)
-    for j in range(5):
-      handler.handleCommand(blueOn)
-      handler.handleCommand(whiteOn)
+
+  handler.handleCommand(redOn)
+  time.sleep(1)
+  handler.handleCommand(blueOn)
+  time.sleep(1)
+
+
+#  for i in range(100):
+#    for j in range(5):
+#      handler.handleCommand(redOn)
+#      handler.handleCommand(whiteOn)
+#    for j in range(5):
+#      handler.handleCommand(blueOn)
+#admin      handler.handleCommand(whiteOn)
 
