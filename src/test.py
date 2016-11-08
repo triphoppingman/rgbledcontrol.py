@@ -19,7 +19,7 @@ if __name__ == "__main__":
   print "Hello World";
 
   #a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
-  a2 = LedLightMagicBulb('a2', 'bulb06', 5577)
+  a2 = LedLightMagicBulb('bulb06')
 ##  a3 = LedLightWifi370('a3', 'strip05', 5577)
 ##  a1.turnOn()
 #  time.sleep(1)

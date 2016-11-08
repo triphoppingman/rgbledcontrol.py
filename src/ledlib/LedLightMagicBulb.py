@@ -24,7 +24,7 @@ class LedLightMagicBulb(LedLight):
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
-    return self.xmit(self.convertToBin(self.addChkSum([49,red*self.factor, green*self.factor, blue*self.factor, 0, 240, 15])))
+    return self.sendRGBHex(red*self.factor, green*self.factor, blue*self.factor)
 
   # Send an RGB message (and each color element is in range 0-255)
   def sendRGBHex(self,red, green, blue):
@@ -32,7 +32,7 @@ class LedLightMagicBulb(LedLight):
 
   # Send a white message    
   def sendWhite(self, white):
-    return self.xmit(self.convertToBin(self.addChkSum([49,0, 0, 0, white*self.factor, 15, 15])))
+    return self.sendWhiteHex(white*self.factor)
 
   # Send a white message (the white value is a 0-255)
   def sendWhiteHex(self, white):
