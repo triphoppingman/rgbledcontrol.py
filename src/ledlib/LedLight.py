@@ -19,7 +19,9 @@ class LedLight:
 
     self.ipAddr = socket.gethostbyname(ipAddrOrName)
     self.ipPort = ipPort
-        
+    self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.s.connect((self.ipAddr, self.ipPort))
+
   # takes a list of bytes
   def echoAsHex(self,bin_list):
     hexStr = binascii.hexlify(bytearray(bin_list))
@@ -35,22 +37,10 @@ class LedLight:
 
   # Transmit a binary message
   def xmit(self,bin_msg):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    s.connect((self.ipAddr, self.ipPort))
-    s.send(bin_msg)
-    s.close()
-    return None 
+    self.s.send(bin_msg)
 
   # Transmit a binary message
-  def xmitrecv(self,bin_msg,timeout=1):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
-    s.settimeout(2.0)
-    s.connect((self.ipAddr, self.ipPort))
-    s.send(bin_msg)
-    s.setblocking(0)
-
+  def recv(self,bin_msg,timeout=1):
     chunks = []
     begin = time.time()
     while 1:
@@ -59,7 +49,7 @@ class LedLight:
       elif time.time() - begin > timeout * 2:
         break
       try:
-        chunk = s.recv(8192)
+        chunk = self.s.recv(8192)
         if chunk:
           chunks.append(chunk)
           begin = time.time()
@@ -68,8 +58,8 @@ class LedLight:
       except:
         pass
 
-    s.close()
     return ''.join(chunks)
+
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
@@ -94,18 +84,3 @@ class LedLight:
     else:
       print "No data returned"
     time.sleep(1)
-
-  def testYr(data):
-    self.echoAsHex(data)
-    self.data = xmitrecv( self.convertToBin(data))
-    if data != None:
-      print "Data returned: "+binascii.hexlify(data)
-    else:
-      print "No data returned"    
-    time.sleep(1)
-
-  def testY(data):
-    echoAsHex(data)
-    data = xmit( convertToBin(data))
-    time.sleep(1)
- 

@@ -65,10 +65,11 @@ if __name__ == "__main__":
   whiteOn = ServerCommand("{g1}sendRGB(red=100,blue=100,green=100)")
   blueOn = ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)")
 
-  handler.handleCommand(redOn)
-  time.sleep(1)
-  handler.handleCommand(blueOn)
-  time.sleep(1)
+  while 1:
+    g1.sendWhite(75)
+    time.sleep(0.5)
+    g1.sendWhite(15)
+    time.sleep(0.5)
 
 
 #  for i in range(100):
