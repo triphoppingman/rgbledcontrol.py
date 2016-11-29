@@ -9,6 +9,7 @@ import time
 # 
 class LedLight:
   def __init__(self, name, ipAddrOrName = None, ipPort = None):
+    self.connected = False
     self.name = name
 
     if ipAddrOrName is None:
@@ -19,8 +20,15 @@ class LedLight:
 
     self.ipAddr = socket.gethostbyname(ipAddrOrName)
     self.ipPort = ipPort
-    self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    self.s.connect((self.ipAddr, self.ipPort))
+    self.openSocket()
+
+  def openSocket(self):
+    try:
+      self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      self.s.connect((self.ipAddr, self.ipPort))
+      self.connected = True
+    except socket.error, exc:
+      print "Caught exception socket.error : %s" % exc
 
   # takes a list of bytes
   def echoAsHex(self,bin_list):
@@ -37,29 +45,34 @@ class LedLight:
 
   # Transmit a binary message
   def xmit(self,bin_msg):
-    self.s.send(bin_msg)
+    if self.connected:
+      self.s.send(bin_msg)
+    else:
+      print self.name+" is not connected"
 
   # Transmit a binary message
   def recv(self,bin_msg,timeout=1):
-    chunks = []
-    begin = time.time()
-    while 1:
-      if chunks and time.time() - begin > timeout:
-        break
-      elif time.time() - begin > timeout * 2:
-        break
-      try:
-        chunk = self.s.recv(8192)
-        if chunk:
-          chunks.append(chunk)
-          begin = time.time()
-        else:
-          time.sleep(0.1)
-      except:
-        pass
+    if self.connected:
+      chunks = []
+      begin = time.time()
+      while 1:
+        if chunks and time.time() - begin > timeout:
+          break
+        elif time.time() - begin > timeout * 2:
+          break
+        try:
+          chunk = self.s.recv(8192)
+          if chunk:
+            chunks.append(chunk)
+            begin = time.time()
+          else:
+            time.sleep(0.1)
+        except:
+          pass
 
-    return ''.join(chunks)
-
+      return ''.join(chunks)
+    else:
+      print "Not connected"
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
