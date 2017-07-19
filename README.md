@@ -12,11 +12,22 @@ kinds (bulbs and WIFI370 modules).   It also incorporates a twisted
 internet server so that high level commands may be interpreted (via
 PyParsing) and executed.   Grouping structures are supported.
 
+## Limitations
+THis library concentrates on turning on lightbulbs and then controlling the 
+colors.   It does not support transitions, fades, built-in functions, etc.   For those
+please refer to the underlying functionality
+
 ## Warrantees etc.
 I don't warrantee a thing - in fact expect everything to break.
 
 ## Getting started.
 Take a look at the test.py example in the src directory.   This will give
 a good idea of the capabilities
+
+## Supported Lightbulbs
+
+1.  Flux Wifi light bulbs
+2.  Wifi370 light strip drivers
+3.  Yeelight light bulbs
 
 

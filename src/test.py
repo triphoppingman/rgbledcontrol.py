@@ -3,6 +3,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+from src.ledlib.LedLightYeeLight import LedLightYeeLight
 
 __author__ = "bruce"
 __date__ = "$Oct 11, 2015 4:02:18 PM$"
@@ -19,8 +20,25 @@ if __name__ == "__main__":
   print "Hello World";
 
   #a1 = LedLightMagicBulb('a1', '192.168.1.29', 5577)
-  a2 = LedLightMagicBulb('bulb0')
+  # a2 = LedLightMagicBulb('bulb0')
 ##  a3 = LedLightWifi370('a3', 'strip05', 5577)
+
+  a4 = LedLightYeeLight('bulb08')
+  a4.turnOff()
+  time.sleep(1)
+  a4.turnOn()
+  time.sleep(1)
+  a4.turnOff()
+  time.sleep(1)
+  a4.turnOn()
+  time.sleep(1)
+  a4.sendWhite(100)
+  time.sleep(1)
+  a4.sendWhite(75)
+  time.sleep(1)
+  a4.sendWhite(50)
+  time.sleep(1)
+  a4.sendWhite(25)
 ##  a1.turnOn()
 #  time.sleep(1)
 #  a1.sendWhite(100)
@@ -29,19 +47,19 @@ if __name__ == "__main__":
 #  time.sleep(1)
 #  a1.turnOff()
 
-  g1 = LedLightGroup('g1', [a2])
-#  g1.turnOn()
-#  while 1:
-#    g1.sendWhite(50)
-#    time.sleep(1)
-#    g1.sendRGB(100,0,0)
-#    time.sleep(1)
-#    g1.sendRGB(0,90,0)
-#    time.sleep(1)
-#    g1.sendRGB(0,0,70)
-#    time.sleep(1)
-#  g1.turnOff()
-  handler = LedLightCommandHandler([g1])
+#   g1 = LedLightGroup('g1', [a2])
+# #  g1.turnOn()
+# #  while 1:
+# #    g1.sendWhite(50)
+# #    time.sleep(1)
+# #    g1.sendRGB(100,0,0)
+# #    time.sleep(1)
+# #    g1.sendRGB(0,90,0)
+# #    time.sleep(1)
+# #    g1.sendRGB(0,0,70)
+# #    time.sleep(1)
+# #  g1.turnOff()
+#   handler = LedLightCommandHandler([g1])
 #  handler.handleCommand(ServerCommand("{g1}turnOn"))
 #  time.sleep(2)
 #  handler.handleCommand(ServerCommand("{g1}turnOff"))
@@ -61,15 +79,15 @@ if __name__ == "__main__":
 #    time.sleep(1)
 #  handler.handleCommand(ServerCommand("{g1}turnOff"))
 
-  redOn = ServerCommand("{g1}sendRGB(red=100,blue=0,green=0)")
-  whiteOn = ServerCommand("{g1}sendRGB(red=100,blue=100,green=100)")
-  blueOn = ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)")
-
-  while 1:
-    g1.sendWhite(75)
-    time.sleep(0.5)
-    g1.sendWhite(15)
-    time.sleep(0.5)
+  # redOn = ServerCommand("{g1}sendRGB(red=100,blue=0,green=0)")
+  # whiteOn = ServerCommand("{g1}sendRGB(red=100,blue=100,green=100)")
+  # blueOn = ServerCommand("{g1}sendRGB(red=0,blue=100,green=0)")
+  #
+  # while 1:
+  #   g1.sendWhite(75)
+  #   time.sleep(0.5)
+  #   g1.sendWhite(15)
+  #   time.sleep(0.5)
 
 
 #  for i in range(100):

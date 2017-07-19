@@ -30,5 +30,5 @@ setup(
         'Programming Language :: Python :: 2.7'
     ],
     keywords='RGB WIFI LED',
-    install_requires=['twisted', 'PyParsing']
+    install_requires=['twisted', 'PyParsing', 'yeelight']
 )
