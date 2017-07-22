@@ -17,7 +17,7 @@ class LedLightYeeLight(LedLight):
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
-    return self.set_rgb(red, green, blue)
+    return self.bulb.set_rgb(red, green, blue)
 
   # Send a white message    
   def sendWhite(self, white):
