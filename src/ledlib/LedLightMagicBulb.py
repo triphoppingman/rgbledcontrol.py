@@ -51,9 +51,9 @@ class LedLightMagicBulb(LedLight):
     else:
       return 0
 
-
+  # Get the white intensity
   def getWhite(self):
-    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b]))) 
     if data and len(data) > 8:
       return ord(data[9])
     else:
