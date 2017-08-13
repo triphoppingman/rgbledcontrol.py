@@ -8,6 +8,8 @@ import time
 # Base class for all led lights
 # 
 class LedLight:
+  factor = 256.0 / 100
+
   def __init__(self, name, ipAddrOrName = None, ipPort = None):
     self.connected = False
     self.name = name
@@ -21,6 +23,10 @@ class LedLight:
     self.ipAddr = socket.gethostbyname(ipAddrOrName)
     self.ipPort = ipPort
     self.openSocket()
+
+  # Scale the value from 0-99 to 0-255
+  def scale(self, val):
+    return max(min(255, int(val*self.factor)), 0)
 
   def openSocket(self):
     try:
@@ -55,27 +61,18 @@ class LedLight:
       print self.name+" is not connected"
 
   # Transmit a binary message
-  def recv(self,bin_msg,timeout=1):
+  def recv(self,bin_msg, msg_len, timeout=1):
     self.xmit(bin_msg)
     
     if self.connected:
       chunks = []
-      begin = time.time()
-      while 1:
-        if chunks and time.time() - begin > timeout:
-          break
-        elif time.time() - begin > timeout * 2:
-          break
-        try:
-          chunk = self.s.recv(8192)
-          if chunk:
-            chunks.append(chunk)
-            begin = time.time()
-          else:
-            time.sleep(0.1)
-        except:
-          pass
-
+      bytes_recd = 0
+      while bytes_recd < msg_len:
+        chunk = self.s.recv(min(msg_len - bytes_recd, 2048))
+        if chunk == '':
+          raise RuntimeError("socket connection broken")
+        chunks.append(chunk)
+        bytes_recd = bytes_recd + len(chunk)
       return ''.join(chunks)
     else:
       print "Not connected"
@@ -92,6 +89,15 @@ class LedLight:
     pass
 
   def turnOn(self):
+    pass
+
+  def isOn(self):
+    pass
+
+  def getWhite(self):
+    pass
+
+  def getRGB(self):
     pass
 
   def testX(self,data):

@@ -7,8 +7,6 @@ import binascii
 # This is just a start, an exploration of the protocol
 # 
 class LedLightMagicBulb(LedLight):
-  factor = 256/100
-  
   def addChkSum(self,bin_list):
     chksum = 0
     for idx,val in enumerate(bin_list):
@@ -24,7 +22,7 @@ class LedLightMagicBulb(LedLight):
 
   # Send an RGB message
   def sendRGB(self,red, green, blue):
-    return self.sendRGBHex(red*self.factor, green*self.factor, blue*self.factor)
+    return self.sendRGBHex(self.scale(red), self.scale(green), self.scale(blue))
 
   # Send an RGB message (and each color element is in range 0-255)
   def sendRGBHex(self,red, green, blue):
@@ -32,7 +30,7 @@ class LedLightMagicBulb(LedLight):
 
   # Send a white message    
   def sendWhite(self, white):
-    return self.sendWhiteHex(white*self.factor)
+    return self.sendWhiteHex(self.scale(white))
 
   # Send a white message (the white value is a 0-255)
   def sendWhiteHex(self, white):
@@ -45,28 +43,24 @@ class LedLightMagicBulb(LedLight):
     return self.xmit(self.convertToBin(self.addChkSum([0x71, 0x23, 0x0f])))
 
   def isOn(self):
-    data = self.recv(self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
+    data = self.recv(self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
     if data and len(data)>2:
-      return binascii.hexlify(data[2]) == '23'
+      return ord(data[3]) == 0x23
     else:
       return 0
 
   # Get the white intensity
   def getWhite(self):
-    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b]))) 
-    if data and len(data) > 8:
-      return ord(data[9])
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
+    if data and len(data) > 10:
+      return ord(data[11])
     else:
       return -1
 
-
   def getRGB(self):
-    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
     if data and len(data) > 8:
-      red = ord(data[6])
-      green = ord(data[7])
-      blue = ord(data[8])
-      return [red, green, blue]
+      return [(ord(data[8])), (ord(data[9])), (ord(data[10]))]
     else:
       return -1
 
