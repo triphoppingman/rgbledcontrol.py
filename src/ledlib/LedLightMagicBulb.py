@@ -53,8 +53,7 @@ class LedLightMagicBulb(LedLight):
 
 
   def getWhite(self):
-    self.xmit( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
-    data = self.recv()
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
     if data and len(data) > 8:
       return ord(data[9])
     else:
@@ -62,8 +61,7 @@ class LedLightMagicBulb(LedLight):
 
 
   def getRGB(self):
-    self.xmit( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
-    data = self.recv()
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
     if data and len(data) > 8:
       red = ord(data[6])
       green = ord(data[7])
