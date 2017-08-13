@@ -45,8 +45,7 @@ class LedLightMagicBulb(LedLight):
     return self.xmit(self.convertToBin(self.addChkSum([0x71, 0x23, 0x0f])))
 
   def isOn(self):
-    self.xmit( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
-    data = self.recv()
+    data = self.recv(self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])))
     if data and len(data)>2:
       return binascii.hexlify(data[2]) == '23'
     else:
