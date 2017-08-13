@@ -46,7 +46,11 @@ class LedLight:
   # Transmit a binary message
   def xmit(self,bin_msg):
     if self.connected:
-      self.s.send(bin_msg)
+      try:
+        self.s.send(bin_msg)
+      except:
+        print "Exception sending message"
+
     else:
       print self.name+" is not connected"
 
