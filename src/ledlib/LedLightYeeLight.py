@@ -62,6 +62,7 @@ class LedLightYeeLight(LedLight):
     except Exception as exc:
       print "Caught exception socket.error : %s" % exc
 
+# comment
   def getRGB(self):
     try:
       properties = self.bulb.get_properties()
