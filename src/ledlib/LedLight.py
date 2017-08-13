@@ -52,6 +52,8 @@ class LedLight:
 
   # Transmit a binary message
   def recv(self,bin_msg,timeout=1):
+    self.xmit(bin_msg)
+    
     if self.connected:
       chunks = []
       begin = time.time()
