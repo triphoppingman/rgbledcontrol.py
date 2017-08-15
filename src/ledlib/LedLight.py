@@ -28,6 +28,10 @@ class LedLight:
   def scale(self, val):
     return max(min(255, int(val*self.factor)), 0)
 
+  # Scale the value from 0-255 to 0-100
+  def unscale(self, val):
+    return max(min(100, int(val / self.factor)), 0)
+
   def openSocket(self):
     try:
       self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

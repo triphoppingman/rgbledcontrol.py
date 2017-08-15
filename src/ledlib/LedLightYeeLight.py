@@ -13,6 +13,7 @@ class LedLightYeeLight(LedLight):
       ipAddrOrName = name
 
     self.bulb = Bulb(ipAddrOrName)
+    self.name = name
     try:
       self.bulb.set_name(name)
     except Exception as exc:

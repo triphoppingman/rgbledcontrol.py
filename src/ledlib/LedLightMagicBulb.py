@@ -43,24 +43,24 @@ class LedLightMagicBulb(LedLight):
     return self.xmit(self.convertToBin(self.addChkSum([0x71, 0x23, 0x0f])))
 
   def isOn(self):
-    data = self.recv(self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
+    data = self.recv(self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),14)
     if data and len(data)>2:
-      return ord(data[3]) == 0x23
+      return ord(data[2]) == 0x23
     else:
       return 0
 
   # Get the white intensity
   def getWhite(self):
-    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),14)
     if data and len(data) > 10:
-      return ord(data[11])
+      return self.unscale(ord(data[9]))
     else:
       return -1
 
   def getRGB(self):
-    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),15)
+    data = self.recv( self.convertToBin(self.addChkSum([0x81, 0x8a, 0x8b])),14)
     if data and len(data) > 8:
-      return [(ord(data[8])), (ord(data[9])), (ord(data[10]))]
+      return [self.unscale(ord(data[8])), self.unscale(ord(data[9])), self.unscale(ord(data[10]))]
     else:
       return -1
 
