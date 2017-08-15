@@ -72,7 +72,7 @@ class LedLight:
       chunks = []
       bytes_recd = 0
       while bytes_recd < msg_len:
-        self.s.recv.settimeout(timeout)
+        self.s.settimeout(timeout)
         chunk = self.s.recv(min(msg_len - bytes_recd, 2048))
         if chunk == '':
           raise RuntimeError("socket connection broken")
