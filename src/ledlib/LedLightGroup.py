@@ -12,7 +12,8 @@ class LedLightGroup:
 
   def turnOn(self):
     for member in self.members:
-      member.turnOn()
+      if not member.isOn():
+        member.turnOn()
       
   def turnOff(self):
     for member in self.members:
