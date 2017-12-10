@@ -8,6 +8,9 @@ from src.ledlib.LedLightYeeLight import LedLightYeeLight
 __author__ = "bruce"
 __date__ = "$Oct 11, 2015 4:02:18 PM$"
 
+from ledlib.LedLightYeeLight import LedLightYeeLight
+from ledlib.LedLightHueLight import LedLightHueLight
+from ledlib.LedLightMagicBulb import LedLightMagicBulb
 from ledlib.LedLightMagicBulb import LedLightMagicBulb
 from ledlib.LedLightWifi370 import LedLightWifi370
 from ledlib.LedLightGroup import LedLightGroup
@@ -132,3 +135,25 @@ if __name__ == "__main__":
   # a4.sendRGB(0,0,100)
   # time.sleep(.5)
   # print a4.getRGB()
+
+a6 = LedLightHueLight('192.168.1.50', 'Hue color lamp 4')
+print a6.isOn()
+time.sleep(1)
+a6.turnOff()
+print a6.isOn()
+time.sleep(1)
+a6.turnOn()
+time.sleep(1)
+a6.sendRGB(100, 0, 0)
+print a6.getRGB()
+time.sleep(.5)
+a6.sendRGB(0, 100, 0)
+print a6.getRGB()
+time.sleep(.5)
+a6.sendRGB(0, 0, 100)
+print a6.getRGB()
+time.sleep(.5)
+a6.sendWhite(250)
+time.sleep(1)
+print a6.getWhite()
+
